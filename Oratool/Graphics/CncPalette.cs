@@ -33,6 +33,11 @@ namespace Oratool.Graphics
 
 			using (var fs = File.OpenRead(path))
 			{
+				#if DEBUG
+				if (fs.Length != 256 * 3)
+					Console.Error.WriteLine("Warning: file '{0}' does not look like a PAL file.", path);
+				#endif
+
 				byte[] data = new byte[256 * 3];
 				int offset = 0;
 				while ((offset += fs.Read(data, offset, data.Length - offset)) < data.Length);

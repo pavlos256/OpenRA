@@ -20,13 +20,23 @@ namespace Oratool
 		{
 			string commandName = "help";
 
-			if (args.Length > 1)
+			if (args.Length > 0)
 			{
 				commandName = args[0];
 				args = args.Skip(1).ToArray();
 			}
 
-			var command = CommandRegistry.Singleton.GetCommand(commandName);
+			ICommand command;
+			try
+			{
+				command = CommandRegistry.Singleton.GetCommand(commandName);
+			}
+			catch (KeyNotFoundException ex)
+			{
+				CommandExtensions.WriteError(ExitCode.SyntaxError, ex.Message);
+				command = CommandRegistry.Singleton.GetCommand("help");
+			}
+
 			return (int)command.Execute(args);
 		}
 

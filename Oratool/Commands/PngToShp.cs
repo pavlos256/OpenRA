@@ -58,7 +58,7 @@ namespace Oratool.Commands
 
 		public void ShowHelp()
 		{
-			Console.WriteLine("Usage: {0} {1} [OPTION]... FILE...", Program.Name, typeof(PngToShp).Name.ToLower());
+			Console.WriteLine("Usage: {0} {1} [option]... <file>...", Program.Name, typeof(PngToShp).Name.ToLower());
 			Console.WriteLine();
 			this.oset.WriteOptionDescriptions(Console.Out);
 		}
@@ -71,6 +71,16 @@ namespace Oratool.Commands
 
 				if (inputFiles.Length == 0)
 					return this.WriteError(ExitCode.SyntaxError, "No input files specified.", true);
+
+				if (string.IsNullOrEmpty(this.options.PalettePath))
+					return this.WriteError(ExitCode.SyntaxError, "No palette specified.", true);
+
+				foreach (string path in inputFiles)
+					if (!File.Exists(path))
+						return this.WriteError(ExitCode.FileNotFound, string.Format("Cannot find input file '{0}'.", path));
+
+				if (!File.Exists(this.options.PalettePath))
+					return this.WriteError(ExitCode.FileNotFound, string.Format("Cannot find palette file '{0}'.", this.options.PalettePath));
 
 				var availableColors = GetAvailableColors();
 				var indexer = new ColorIndexer(availableColors);

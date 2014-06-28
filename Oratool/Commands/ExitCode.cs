@@ -12,6 +12,7 @@ namespace Oratool.Commands
 	{
 		OK = 0,
 		UnhandledException,
-		SyntaxError
+		SyntaxError,
+		FileNotFound
 	}
 }

@@ -17,7 +17,7 @@ namespace Oratool.Commands
 
 		public void ShowHelp()
 		{
-			Console.WriteLine("Usage: {0} COMMAND [OPTION]...", Process.GetCurrentProcess().ProcessName);
+			Console.WriteLine("Usage: {0} <command> [option]...", Process.GetCurrentProcess().ProcessName);
 			Console.WriteLine();
 			Console.WriteLine("The available commands are:");
 			foreach (string name in CommandRegistry.Singleton.GetCommandNames().OrderBy(name => name))
@@ -25,6 +25,8 @@ namespace Oratool.Commands
 				var command = CommandRegistry.Singleton.GetCommand(name);
 				Console.WriteLine("{0,-20} {1}", name, command.ShortDescription);
 			}
+			Console.WriteLine();
+			Console.WriteLine("See '{0} {1} <command>' for help about a command", Program.Name, typeof(Help).Name.ToLower());
 		}
 
 		public ExitCode Execute(string[] args)
@@ -49,23 +51,6 @@ namespace Oratool.Commands
 
 			command.ShowHelp();
 			return ExitCode.OK;
-
-			/*
-			var os = new OptionSet()
-			{
-				{ "help:", "Show this help text.", (commandName) => GetCommand(commandName).ShowHelp() }
-			};
-
-			try
-			{
-				foreach (var a in os.Parse(args))
-					Console.WriteLine(a);
-			}
-			catch (OptionException ex)
-			{
-				return WriteError(ExitCode.SyntaxError, ex.Message, true);
-			}
-			*/
 		}
 	}
 }
