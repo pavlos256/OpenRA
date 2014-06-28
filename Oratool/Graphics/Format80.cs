@@ -126,26 +126,82 @@ namespace Oratool.Graphics
 			}
 		}
 
+		private static int CountSame(byte[] src, int offset, int maxCount)
+		{
+			maxCount = Math.Min(src.Length - offset, maxCount);
+			if (maxCount <= 0)
+				return 0;
+
+			byte first = src[offset++];
+			int i;
+
+			for (i = 1; i < maxCount && src[offset] == first; i++, offset++);
+
+			return i;
+		}
+
+		private static void WriteCopyBlocks(byte[] src, int offset, int count, MemoryStream output)
+		{
+			while (count > 0)
+			{
+				int writeNow = Math.Min(count, 0x3F);
+				output.WriteByte((byte)(0x80 | writeNow));
+				output.Write(src, offset, writeNow);
+
+				count -= writeNow;
+				offset += writeNow;
+			}
+		}
+
+		// Quick and dirty Format80 encoder version 2
+		// Uses raw copy and RLE compression
 		public static byte[] Encode(byte[] src)
 		{
-			/* quick & dirty format80 encoder -- only uses raw copy operator, terminated with a zero-run. */
-			/* this does not produce good compression, but it's valid format80 */
-
-			var ctx = new FastByteReader(src);
-			var ms = new MemoryStream();
-
-			do
+			using (var ms = new MemoryStream())
 			{
-				var len = Math.Min(ctx.Remaining(), 0x3F);
-				ms.WriteByte((byte)(0x80 | len));
-				while (len-- > 0)
-					ms.WriteByte(ctx.ReadByte());
+				int offset = 0, left = src.Length;
+				int blockStart = 0;
+
+				while (offset < left)
+				{
+					int repeatCount = CountSame(src, offset, 0xFFFF);
+					if (repeatCount >= 4)
+					{
+						// Write what we haven't written up to now
+						{
+							int blockLen = offset - blockStart;
+							WriteCopyBlocks(src, blockStart, blockLen, ms);
+						}
+
+						// Command 4: Repeat byte n times
+						ms.WriteByte(0xFE);
+						// Low byte
+						ms.WriteByte((byte)(repeatCount & 0xFF));
+						// High byte
+						ms.WriteByte((byte)(repeatCount >> 8));
+						// Value to repeat
+						ms.WriteByte(src[offset]);
+
+						offset += repeatCount;
+						blockStart = offset;
+					}
+					else
+					{
+						offset++;
+					}
+				}
+
+				// Write what we haven't written up to now
+				{
+					int blockLen = offset - blockStart;
+					WriteCopyBlocks(src, blockStart, blockLen, ms);
+				}
+
+				// Write terminator
+				ms.WriteByte(0x80);
+
+				return ms.ToArray();
 			}
-			while (!ctx.Done());
-
-			ms.WriteByte(0x80);	// terminator -- 0-length run.
-
-			return ms.ToArray();
 		}
 	}
 }
