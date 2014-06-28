@@ -17,7 +17,7 @@ namespace Oratool.Graphics
 		private Tuple<byte, D3>[] availableColors;
 		private byte transparentIndex;
 		private byte alphaThreshold;
-		private int[] cache;
+		private short[] cache;
 
 		public ColorIndexer(IEnumerable<IndexedColor> availableColors, byte transparentIndex = 0, byte alphaThreshold = 128)
 		{
@@ -25,9 +25,9 @@ namespace Oratool.Graphics
 			this.transparentIndex = 0;
 			this.alphaThreshold = alphaThreshold;
 
-			this.cache = new int[256 * 256 * 256];
+			this.cache = new short[256 * 256 * 256];
 			for (int i = 0; i < this.cache.Length; i++)
-				this.cache[i] = -1;
+				this.cache[i] = (short)-1;
 		}
 
 		private byte FindBestIndex(Color c)
