@@ -56,6 +56,12 @@ namespace OpenRA
 		}
 	}
 
+	public enum MapType
+	{
+		Standard = 0,
+		Heightmap
+	}
+
 	public class Map
 	{
 		[FieldLoader.Ignore] public IFolder Container;
@@ -63,6 +69,7 @@ namespace OpenRA
 
 		// Yaml map data
 		public string Uid { get; private set; }
+		public MapType MapType;
 		public int MapFormat;
 		public bool Selectable = true;
 		public bool UseAsShellmap;

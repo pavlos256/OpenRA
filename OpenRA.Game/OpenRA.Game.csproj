@@ -35,11 +35,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <OutputPath>..\</OutputPath>
+    <OutputPath>.</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <PlatformTarget>x86</PlatformTarget>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -48,14 +50,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="SharpFont">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\thirdparty\SharpFont.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Nat, Version=1.1.0.0, Culture=neutral">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-      <Package>mono.nat</Package>
-      <HintPath>..\thirdparty\Mono.Nat.dll</HintPath>
     </Reference>
     <Reference Include="Eluant">
       <HintPath>..\thirdparty\Eluant.dll</HintPath>
@@ -71,6 +66,10 @@
     </Reference>
     <Reference Include="SDL2-CS">
       <HintPath>..\thirdparty\SDL2-CS.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Nat">
+      <HintPath>..\thirdparty\Mono.Nat.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -237,6 +236,9 @@
     <Compile Include="Widgets\RootWidget.cs" />
     <Compile Include="Map\CellLayer.cs" />
     <Compile Include="Map\CellRegion.cs" />
+    <Compile Include="Map\HeightmapTerrain.cs" />
+    <Compile Include="Map\TileMapTileSet.cs" />
+    <Compile Include="Map\TileMapTile.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileSystem\D2kSoundResources.cs" />

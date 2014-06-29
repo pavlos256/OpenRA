@@ -31,6 +31,17 @@ namespace OpenRA
 			entries = new T[size.Width * size.Height];
 		}
 
+		public CellLayer(Size size, T[] data)
+		{
+			if (data == null)
+				throw new ArgumentNullException("data");
+			if (data.Length != size.Width * size.Height)
+				throw new ArgumentException("Size and data.Length are inconsistent");
+
+			Size = size;
+			entries = data;
+		}
+
 		// Resolve an array index from cell coordinates
 		int Index(CPos cell)
 		{

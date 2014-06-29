@@ -1,0 +1,58 @@
+Selectable: False
+
+MapType: Heightmap
+
+MapFormat: 1
+
+RequiresMod: dev
+
+Title: Test
+
+Description: Generic heightmap test
+
+Author: pav
+
+MapSize: 64, 64
+
+Tileset: generic
+
+Heightmap:
+	HeightmapFile: heightmap.png
+	HeightmapBits: 8
+	HeightResolution: 64
+	WaterLevel: 32
+	Tiles: terraintiles.png
+
+#Bounds: 1,1,62,62
+
+UseAsShellmap: True
+
+Type: Conquest
+
+Options:
+
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Race: allies
+		Allies: Allies
+
+Smudges:
+
+Rules:
+		LoadWidgetAtGameStart:
+			Widget: MAINMENU
+
+Sequences:
+
+VoxelSequences:
+
+Weapons:
+
+Voices:
+
+Notifications:
+
+Translations:
