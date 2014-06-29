@@ -150,6 +150,15 @@ mod_ts_LIBS = $(COMMON_LIBS) $(STD_MOD_LIBS) $(mod_ra_TARGET)
 PROGRAMS += mod_ts
 mod_ts: $(mod_ts_TARGET)
 
+# Dev mod
+mod_dev_SRCS := $(shell find OpenRA.Mods.Dev/ -iname '*.cs')
+mod_dev_TARGET = mods/dev/OpenRA.Mods.Dev.dll
+mod_dev_KIND = library
+mod_dev_DEPS = $(STD_MOD_DEPS) $(mod_ra_TARGET)
+mod_dev_LIBS = $(COMMON_LIBS) $(STD_MOD_LIBS) $(mod_ra_TARGET)
+PROGRAMS += mod_dev
+mod_dev: $(mod_dev_TARGET)
+
 ##### Tools #####
 
 # Map Editor
@@ -260,7 +269,7 @@ tools: editor tsbuild crashdialog
 
 package: dependencies core editor crashdialog docs version
 
-mods: mod_ra mod_cnc mod_d2k mod_ts
+mods: mod_ra mod_cnc mod_d2k mod_ts mod_dev
 
 all: cli-dependencies core tools
 

@@ -1,0 +1,150 @@
+Metadata:
+	Title: Dev Mod
+	Description: Developer sandbox
+	Version: {DEV_VERSION}
+	Author: the OpenRA Developers
+
+Folders:
+	.
+	./mods/dev
+	~^Content/dev
+	./mods/ra
+	./mods/ra/bits
+	./mods/ra/bits/desert
+	./mods/ra/uibits
+	~^Content/ra
+
+MapFolders:
+	./mods/dev/maps: System
+	~^maps/dev: User
+
+Packages:
+	~main.mix
+	redalert.mix
+	conquer.mix
+	hires.mix
+	local.mix
+	sounds.mix
+	speech.mix
+	allies.mix
+	russian.mix
+	temperat.mix
+	snow.mix
+	interior.mix
+	~scores.mix
+	~movies1.mix
+	~movies2.mix
+
+PackageContents:
+
+Rules:
+#	mods/dev/rules/xxx.yaml
+
+Sequences:
+#	mods/dev/sequences/aircraft.yaml
+
+Cursors:
+	mods/ra/cursors.yaml
+
+Chrome:
+#	mods/ts/chrome.yaml
+
+Assemblies:
+	mods/ra/OpenRA.Mods.RA.dll
+	mods/dev/OpenRA.Mods.Dev.dll
+
+ChromeLayout:
+	mods/ra/chrome/gameinit.yaml
+	mods/ra/chrome/ingame.yaml
+	mods/ra/chrome/ingame-chat.yaml
+	mods/ra/chrome/ingame-diplomacy.yaml
+	mods/ra/chrome/ingame-fmvplayer.yaml
+	mods/ra/chrome/ingame-menu.yaml
+	mods/ra/chrome/ingame-objectives.yaml
+	mods/ra/chrome/ingame-observer.yaml
+	mods/ra/chrome/ingame-observerstats.yaml
+	mods/ra/chrome/ingame-player.yaml
+	mods/ra/chrome/mainmenu.yaml
+	mods/ra/chrome/settings.yaml
+	mods/ra/chrome/credits.yaml
+	mods/ra/chrome/lobby.yaml
+	mods/ra/chrome/lobby-mappreview.yaml
+	mods/ra/chrome/lobby-playerbin.yaml
+	mods/ra/chrome/lobby-dialogs.yaml
+	mods/ra/chrome/color-picker.yaml
+	mods/ra/chrome/map-chooser.yaml
+	mods/ra/chrome/create-server.yaml
+	mods/ra/chrome/serverbrowser.yaml
+	mods/ra/chrome/connection.yaml
+	mods/ra/chrome/directconnect.yaml
+	mods/ra/chrome/replaybrowser.yaml
+	mods/ra/chrome/dropdowns.yaml
+	mods/ra/chrome/cheats.yaml
+	mods/ra/chrome/musicplayer.yaml
+	mods/ra/chrome/tooltips.yaml
+	mods/ra/chrome/assetbrowser.yaml
+	mods/ra/chrome/irc.yaml
+	mods/ra/chrome/missionbrowser.yaml
+	mods/ra/chrome/confirmation-dialogs.yaml
+
+Weapons:
+#	mods/ts/weapons.yaml
+
+Voices:
+#	mods/ts/voices.yaml
+
+Notifications:
+#	mods/ts/notifications.yaml
+
+TileSets:
+#	mods/ra/tilesets/snow.yaml
+
+Music:
+#	mods/ts/music.yaml
+
+LoadScreen: DefaultLoadScreen
+	Image: mods/ra/uibits/loadscreen.png
+	InstallerMenuWidget: INSTALL_PANEL
+	TestFiles: allies.mix
+	PackageMirrorList:
+	Text: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+
+ServerTraits:
+	LobbyCommands
+	PlayerPinger
+#	MasterServerPinger
+
+LobbyDefaults:
+	AllowCheats: true
+	Crates: true
+	StartingUnitsClass: none
+	FragileAlliances: false
+	Shroud: true
+	Fog: true
+
+ChromeMetrics:
+	mods/dev/metrics.yaml
+
+Fonts:
+	Regular:
+		Font:FreeSans.ttf
+		Size:14
+	Bold:
+		Font:FreeSansBold.ttf
+		Size:14
+	Title:
+		Font:FreeSansBold.ttf
+		Size:32
+	BigBold:
+		Font:FreeSansBold.ttf
+		Size:24
+	Tiny:
+		Font:FreeSans.ttf
+		Size:10
+	TinyBold:
+		Font:FreeSansBold.ttf
+		Size:10
+
+SupportsMapsFrom: dev
+
+#NewsUrl: http://openra.net/gamenews

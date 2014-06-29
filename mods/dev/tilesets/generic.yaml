@@ -1,0 +1,17 @@
+General:
+	Id: GENERIC
+	Name: Generic
+	Atlas: generic.png
+	TileSize: 16, 16
+
+Tiles:
+	Tile@Dirt:
+		Variants:
+			1: 0, 0
+			2: 0, 1
+			3: 0, 2
+		MinimapColor: 77, 63, 35
+	Tile@Grass:
+		Variants:
+			1: 0, 3
+		MinimapColor: 41, 82, 59
