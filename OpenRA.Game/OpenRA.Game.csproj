@@ -243,6 +243,9 @@
     <Compile Include="Sound\OpenAlSound.cs" />
     <Compile Include="Sound\NullSound.cs" />
     <Compile Include="Effects\SpriteEffect.cs" />
+    <Compile Include="Widgets\Ui.cs" />
+    <Compile Include="Widgets\ContainerWidget.cs" />
+    <Compile Include="Widgets\WidgetArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileSystem\D2kSoundResources.cs" />
