@@ -246,6 +246,7 @@
     <Compile Include="Widgets\Ui.cs" />
     <Compile Include="Widgets\ContainerWidget.cs" />
     <Compile Include="Widgets\WidgetArgs.cs" />
+    <Compile Include="Widgets\Padding.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileSystem\D2kSoundResources.cs" />
