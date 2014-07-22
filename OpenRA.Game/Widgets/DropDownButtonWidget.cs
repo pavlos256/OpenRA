@@ -17,12 +17,15 @@ namespace OpenRA.Widgets
 {
 	public class DropDownButtonWidget : ButtonWidget
 	{
-		Widget panel;
+		Widget attachedPanel;
 		MaskWidget fullscreenMask;
 
 		[ObjectCreator.UseCtor]
 		public DropDownButtonWidget(Ruleset modRules)
-			: base(modRules) { }
+			: base(modRules)
+		{
+			LegacyLayout = true;
+		}
 
 		protected DropDownButtonWidget(DropDownButtonWidget widget)	: base(widget) { }
 
@@ -58,20 +61,20 @@ namespace OpenRA.Widgets
 
 		public void RemovePanel()
 		{
-			if (panel == null)
+			if (attachedPanel == null)
 				return;
 
 			Ui.Root.RemoveChild(fullscreenMask);
-			Ui.Root.RemoveChild(panel);
-			panel = fullscreenMask = null;
+			Ui.Root.RemoveChild(attachedPanel);
+			attachedPanel = fullscreenMask = null;
 		}
 
 		public void AttachPanel(Widget p) { AttachPanel(p, null); }
-		public void AttachPanel(Widget p, Action onCancel)
+		public void AttachPanel(Widget panel, Action onCancel)
 		{
-			if (panel != null)
+			if (attachedPanel != null)
 				throw new InvalidOperationException("Attempted to attach a panel to an open dropdown");
-			panel = p;
+			attachedPanel = panel;
 
 			// Mask to prevent any clicks from being sent to other widgets
 			fullscreenMask = new MaskWidget();
@@ -82,8 +85,19 @@ namespace OpenRA.Widgets
 
 			Ui.Root.AddChild(fullscreenMask);
 
-			var oldBounds = panel.Bounds;
-			panel.Bounds = new Rectangle(RenderOrigin.X, RenderOrigin.Y + Bounds.Height, oldBounds.Width, oldBounds.Height);
+			var p = RenderOrigin;
+			p.Y += Bounds.Height;
+			if (panel.LegacyLayout)
+			{
+				panel.Bounds = new Rectangle(p.X, p.Y, panel.Bounds.Width, panel.Bounds.Height);
+			}
+			else
+			{
+				panel.X = (p.X < 0 ? "0 " : "") + p.X.ToString();
+				panel.Y = (p.Y < 0 ? "0 " : "") + p.Y.ToString();
+				panel.Width = panel.Bounds.Width.ToString();
+				panel.Height = panel.Bounds.Height.ToString();
+			}
 			Ui.Root.AddChild(panel);
 		}
 
@@ -149,7 +163,13 @@ namespace OpenRA.Widgets
 	public class MaskWidget : Widget
 	{
 		public event Action<MouseInput> OnMouseDown = _ => {};
-		public MaskWidget() { }
+
+		public MaskWidget()
+		{
+			Width = "PARENT_RIGHT";
+			Height = "PARENT_BOTTOM";
+		}
+
 		public MaskWidget(MaskWidget other)
 			: base(other)
 		{

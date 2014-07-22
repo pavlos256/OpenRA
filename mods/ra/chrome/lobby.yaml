@@ -103,6 +103,7 @@ Background@SERVER_LOBBY:
 					Height: 16
 					X: 2
 					Y: 0
+					LegacyLayout: true
 					Children:
 						Label@TIME:
 							X: 3

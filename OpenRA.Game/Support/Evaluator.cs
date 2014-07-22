@@ -30,6 +30,12 @@ namespace OpenRA.Support
 
 			foreach (var t in postfix)
 			{
+				if (t.Length > 1)
+				{
+					s.Push(Exts.ParseIntegerInvariant(t));
+					continue;
+				}
+
 				switch (t[0])
 				{
 					case '+': ApplyBinop(s, (x, y) => y + x); break;

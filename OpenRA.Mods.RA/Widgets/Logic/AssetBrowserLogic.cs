@@ -189,7 +189,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 		void ApplyFilter(string filename)
 		{
 			assetVisByName.Clear();
-			assetList.Layout.AdjustChildren();
+			assetList.ClassicLayout.AdjustChildren();
 			assetList.ScrollToTop();
 
 			// Select the first visible

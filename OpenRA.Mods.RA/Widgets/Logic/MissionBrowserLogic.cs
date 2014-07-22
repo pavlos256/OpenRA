@@ -88,7 +88,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 			description.Text = text;
 			description.Bounds.Height = descriptionFont.Measure(text).Y;
 			descriptionPanel.ScrollToTop();
-			descriptionPanel.Layout.AdjustChildren();
+			descriptionPanel.ClassicLayout.AdjustChildren();
 		}
 
 		void StartMission()

@@ -260,7 +260,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 				newsItem.Bounds.Height += contentLabel.Bounds.Height;
 
 				newsPanel.AddChild(newsItem);
-				newsPanel.Layout.AdjustChildren();
+				newsPanel.ClassicLayout.AdjustChildren();
 			}
 		}
 

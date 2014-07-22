@@ -35,7 +35,7 @@ namespace OpenRA.Widgets
 		public int ButtonDepth = ChromeMetrics.Get<int>("ButtonDepth");
 		public string Background = "scrollpanel-bg";
 		public int ContentHeight;
-		public ILayout Layout;
+		public ILayout ClassicLayout;
 		public int MinimumThumbSize = 10;
 		public ScrollPanelAlign Align = ScrollPanelAlign.Top;
 		public bool CollapseHiddenChildren;
@@ -73,7 +73,8 @@ namespace OpenRA.Widgets
 
 		public ScrollPanelWidget()
 		{
-			Layout = new ListLayout(this);
+			ClassicLayout = new ListLayout(this);
+			LegacyLayout = true;
 		}
 
 		public override void RemoveChildren()
@@ -85,14 +86,14 @@ namespace OpenRA.Widgets
 		public override void AddChild(Widget child)
 		{
 			// Initial setup of margins/height
-			Layout.AdjustChild(child);
+			ClassicLayout.AdjustChild(child);
 			base.AddChild(child);
 		}
 
 		public override void RemoveChild(Widget child)
 		{
 			base.RemoveChild(child);
-			Layout.AdjustChildren();
+			ClassicLayout.AdjustChildren();
 			Scroll(0);
 		}
 
@@ -101,7 +102,7 @@ namespace OpenRA.Widgets
 			oldChild.Removed();
 			newChild.Parent = this;
 			Children[Children.IndexOf(oldChild)] = newChild;
-			Layout.AdjustChildren();
+			ClassicLayout.AdjustChildren();
 			Scroll(0);
 		}
 
@@ -380,7 +381,7 @@ namespace OpenRA.Widgets
 					var oldWidget = Children[i];
 					oldWidget.Removed();
 					Children[i] = newWidget;
-					Layout.AdjustChildren();
+					ClassicLayout.AdjustChildren();
 				}
 				else
 					AddChild(newWidget);

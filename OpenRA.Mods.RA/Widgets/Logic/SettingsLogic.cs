@@ -303,7 +303,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 			mouseScrollDropdown.GetText = () => gs.MouseScroll.ToString();
 
 			var hotkeyList = panel.Get<ScrollPanelWidget>("HOTKEY_LIST");
-			hotkeyList.Layout = new GridLayout(hotkeyList);
+			hotkeyList.ClassicLayout = new GridLayout(hotkeyList);
 			var hotkeyHeader = hotkeyList.Get<ScrollItemWidget>("HEADER");
 			var globalTemplate = hotkeyList.Get("GLOBAL_TEMPLATE");
 			var unitTemplate = hotkeyList.Get("UNIT_TEMPLATE");

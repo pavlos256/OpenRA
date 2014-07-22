@@ -10,14 +10,23 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using OpenRA.Graphics;
+using OpenRA;
 
 namespace OpenRA.Widgets
 {
 	public static class Ui
 	{
-		public static Widget Root = new RootWidget();
+		static Lazy<RootWidget> root = Exts.Lazy(() =>
+		{
+			var r = new RootWidget();
+			r.Bounds = new Rectangle(Point.Empty, Game.Renderer.Resolution);
+			r.Layout = new AbsoluteLayout();
+			return r;
+		});
+		public static Widget Root { get { return root.Value; } }
 
 		public static int LastTickTime = Environment.TickCount;
 

@@ -53,7 +53,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 			earnedThisMinuteGraphHeaders = widget.Get<ContainerWidget>("EARNED_THIS_MIN_GRAPH_HEADERS");
 
 			playerStatsPanel = widget.Get<ScrollPanelWidget>("PLAYER_STATS_PANEL");
-			playerStatsPanel.Layout = new GridLayout(playerStatsPanel);
+			playerStatsPanel.ClassicLayout = new GridLayout(playerStatsPanel);
 
 			basicPlayerTemplate = playerStatsPanel.Get<ScrollItemWidget>("BASIC_PLAYER_TEMPLATE");
 			economyPlayerTemplate = playerStatsPanel.Get<ScrollItemWidget>("ECONOMY_PLAYER_TEMPLATE");

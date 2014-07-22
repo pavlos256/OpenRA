@@ -197,3 +197,190 @@ Container@MAINMENU:
 					Height: 25
 					Text: Battlefield News
 					Font: Bold
+		Background@TestBox:
+			X: 350
+			Y: 100
+			Width: WINDOW_RIGHT - 350 - 300
+			Height: WINDOW_BOTTOM - 100 - 50
+			Background: dialog2
+			Layout: Box
+				ItemSpacing: 20
+			Children:
+				Background@VertMenu:
+					Width: 200
+					Height: PARENT_HEIGHT / 2
+					Layout: Box
+						Orientation: Vertical
+						Padding: 20
+						ItemSpacing: 10
+						MinSize: 0, 30
+					Children:
+						Button@TestButton1:
+							MinSize: 0, 25
+							MaxSize: 0, 35
+							Text: 25-35
+							Font: Bold
+						Button@TestButton2:
+							MaxSize: 0, 30
+							Text: Max 30
+							Font: Bold
+						Button@TestButton3:
+							MinSize: 0, 50
+							Text: Min 50
+							Font: Bold
+						Button@TestButton4:
+							Flex: 3
+							Text: Flex 3
+							Font: Bold
+						Button@TestButton5:
+							Flex: 2
+							Text: Flex 2
+							Font: Bold
+						Button@TestButton6:
+							MaxSize: 0, 30
+							Text: Max 30
+							Font: Bold
+				Background@HorzMenus
+					Background: dialog3
+					Layout: Box
+						ItemSpacing: 20
+						Orientation: Vertical
+					Children:
+						Background@HorzMenu1:
+							Width: 800
+							Height: 100
+							Layout: Box
+								Padding: 20
+								ItemSpacing: 10
+								CrossAlign: Center
+							Children:
+								Button@TestButton1:
+									Flex: 2
+									Text: Singleplayer
+									Font: Bold
+									MaxSize: 0, 30
+								Button@TestButton2:
+									Flex: 2
+									Text: Multiplayer
+									Font: Bold
+									MaxSize: 0, 30
+								Button@TestButton3:
+									Text: Settings
+									Font: Bold
+								Button@TestButton4:
+									Text: Extras
+									Font: Bold
+								Button@TestButton5:
+									Text: Mods
+									Font: Bold
+								Button@TestButton6:
+									Text: Quit
+									Font: Bold
+						Background@HorzMenu2:
+							Height: 100
+							Layout: Box
+								Padding: 20, 30
+								ItemSpacing: 10
+								MainAlign: Center
+								CrossAlign: Start
+								MaxSize: 100, 30
+							Children:
+								Button@TestButton1:
+									Text: Singleplayer
+									Font: Bold
+								Button@TestButton2:
+									Text: Multiplayer
+									Font: Bold
+								Button@TestButton3:
+									Text: Settings
+									Font: Bold
+								Button@TestButton4:
+									Text: Extras
+									Font: Bold
+								Button@TestButton5:
+									Text: Mods
+									Font: Bold
+								Button@TestButton6:
+									Text: Quit
+									Font: Bold
+						Background@HorzMenu3:
+							Height: 100
+							Layout: Box
+								Padding: 20, 20, 40, 20
+								ItemSpacing: 10
+								MainAlign: End
+								CrossAlign: Center
+								MaxSize: 100, 30
+							Children:
+								Button@TestButton1:
+									Text: Singleplayer
+									Font: Bold
+								Button@TestButton2:
+									Text: Multiplayer
+									Font: Bold
+								Button@TestButton3:
+									Text: Settings
+									Font: Bold
+								Button@TestButton4:
+									Text: Extras
+									Font: Bold
+								Button@TestButton5:
+									Text: Mods
+									Font: Bold
+								Button@TestButton6:
+									Text: Quit
+									Font: Bold
+						Background@HorzMenu4:
+							Height: 100
+							Layout: Box
+								Padding: 20
+								ItemSpacing: 10
+								MainAlign: SpaceBetween
+								CrossAlign: End
+								MaxSize: 100, 30
+							Children:
+								Button@TestButton1:
+									Text: Singleplayer
+									Font: Bold
+								Button@TestButton2:
+									Text: Multiplayer
+									Font: Bold
+								Button@TestButton3:
+									Text: Settings
+									Font: Bold
+								Button@TestButton4:
+									Text: Extras
+									Font: Bold
+								Button@TestButton5:
+									Text: Mods
+									Font: Bold
+								Button@TestButton6:
+									Text: Quit
+									Font: Bold
+						Background@HorzMenu5:
+							Height: 100
+							Layout: Box
+								Padding: 20
+								ItemSpacing: 10
+								MainAlign: SpaceAround
+								CrossAlign: Stretch
+								MaxSize: 100, 30
+							Children:
+								Button@TestButton1:
+									Text: Singleplayer
+									Font: Bold
+								Button@TestButton2:
+									Text: Multiplayer
+									Font: Bold
+								Button@TestButton3:
+									Text: Settings
+									Font: Bold
+								Button@TestButton4:
+									Text: Extras
+									Font: Bold
+								Button@TestButton5:
+									Text: Mods
+									Font: Bold
+								Button@TestButton6:
+									Text: Quit
+									Font: Bold

@@ -47,24 +47,40 @@ namespace OpenRA
 		{
 			var widget = NewWidget(node.Key, args);
 
-			if (parent != null)
-				parent.AddChild( widget );
-
 			if (node.Key.Contains("@"))
 				FieldLoader.LoadField(widget, "Id", node.Key.Split('@')[1]);
 
+			MiniYamlNode childrenNode = null, layoutNode = null;
+
 			foreach (var child in node.Value.Nodes)
-				if (child.Key != "Children")
+			{
+				if (child.Key == "Children")
+					childrenNode = child;
+				else if (child.Key == "Layout")
+					layoutNode = child;
+				else
 					FieldLoader.LoadField(widget, child.Key, child.Value.Value);
+			}
+
+			if (parent != null)
+				parent.AddChild(widget);
 
 			if (!args.ContainsKey("modRules"))
 				args = new WidgetArgs(args) { { "modRules", modData.DefaultRules } };
 			widget.Initialize(args);
 
-			foreach (var child in node.Value.Nodes)
-				if (child.Key == "Children")
-					foreach (var c in child.Value.Nodes)
-						LoadWidget( args, widget, c);
+			if (layoutNode != null)
+			{
+				widget.Layout = WidgetLayout.CreateLayout(layoutNode.Value.Value);
+				foreach (var ln in layoutNode.Value.Nodes)
+					FieldLoader.LoadField(widget.Layout, ln.Key, ln.Value.Value);
+			}
+
+			if (childrenNode != null)
+			{
+				foreach (var c in childrenNode.Value.Nodes)
+					LoadWidget( args, widget, c);
+			}
 
 			widget.PostInit(args);
 			return widget;

@@ -30,12 +30,27 @@ namespace OpenRA.Widgets
 		public bool IgnoreMouseOver;
 		public bool IgnoreChildMouseOver;
 
+		public WidgetLayout Layout = new AbsoluteLayout();
+		public bool LegacyLayout;
+		public Padding Margin;
+		public int Flex;
+		public Size MinSize;
+		public Size MaxSize;
+		public bool CollapseWhenHidden = true;
+
 		// Calculated internally
 		public Rectangle Bounds;
 		public Widget Parent = null;
 		public Func<bool> IsVisible;
-		public Widget() { IsVisible = () => Visible; }
 		public readonly List<Widget> Children = new List<Widget>();
+
+		protected bool layoutDirty = true;
+		public Dictionary<string, int> LayoutVariables { get; private set; }
+
+		public Widget()
+		{
+			IsVisible = () => Visible;
+		}
 
 		public Widget(Widget widget)
 		{
@@ -47,6 +62,9 @@ namespace OpenRA.Widgets
 			Logic = widget.Logic;
 			Visible = widget.Visible;
 
+			Layout = widget.Layout.Clone();
+			if (widget.LayoutVariables != null)
+				LayoutVariables = new Dictionary<string, int>(widget.LayoutVariables);
 			Bounds = widget.Bounds;
 			Parent = widget.Parent;
 
@@ -84,6 +102,9 @@ namespace OpenRA.Widgets
 
 		public virtual void Initialize(WidgetArgs args)
 		{
+			if (args.ContainsKey("substitutions"))
+				LayoutVariables = new Dictionary<string, int>((Dictionary<string, int>)args["substitutions"]);
+
 			// Parse the YAML equations to find the widget bounds
 			var parentBounds = (Parent == null)
 				? new Rectangle(0, 0, Game.Renderer.Resolution.Width, Game.Renderer.Resolution.Height)
@@ -99,6 +120,8 @@ namespace OpenRA.Widgets
 			substitutions.Add("PARENT_LEFT", parentBounds.Left);
 			substitutions.Add("PARENT_TOP", parentBounds.Top);
 			substitutions.Add("PARENT_BOTTOM", parentBounds.Height);
+			substitutions.Add("PARENT_WIDTH", parentBounds.Width);
+			substitutions.Add("PARENT_HEIGHT", parentBounds.Height);
 			var width = Evaluator.Evaluate(Width, substitutions);
 			var height = Evaluator.Evaluate(Height, substitutions);
 
@@ -109,6 +132,27 @@ namespace OpenRA.Widgets
 								   Evaluator.Evaluate(Y, substitutions),
 								   width,
 								   height);
+		}
+
+		public virtual void PerformLayout()
+		{
+			if (LegacyLayout)
+			{
+				layoutDirty = false;
+				return;
+			}
+
+			Layout.PerformLayout(this);
+
+			foreach (var child in Children)
+				child.PerformLayout();
+
+			layoutDirty = false;
+		}
+
+		public void InvalidateLayout()
+		{
+			layoutDirty = true;
 		}
 
 		public void PostInit(WidgetArgs args)
@@ -275,6 +319,9 @@ namespace OpenRA.Widgets
 		{
 			if (IsVisible())
 			{
+				if (layoutDirty)
+					PerformLayout();
+
 				Draw();
 				foreach (var child in Children)
 					child.DrawOuter();
@@ -297,18 +344,24 @@ namespace OpenRA.Widgets
 		{
 			child.Parent = this;
 			Children.Add(child);
+
+			InvalidateLayout();
 		}
 
 		public virtual void RemoveChild(Widget child)
 		{
 			Children.Remove(child);
 			child.Removed();
+
+			InvalidateLayout();
 		}
 
 		public virtual void RemoveChildren()
 		{
 			while (Children.Count > 0)
 				RemoveChild(Children[Children.Count-1]);
+
+			InvalidateLayout();
 		}
 
 		public virtual void Removed()

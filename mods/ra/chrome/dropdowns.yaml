@@ -105,6 +105,7 @@ ScrollPanel@NEWS_PANEL:
 			Y: 5
 			Width: PARENT_RIGHT - 40
 			Height: 45
+			LegacyLayout: true
 			Children:
 				Label@TITLE:
 					Width: PARENT_RIGHT

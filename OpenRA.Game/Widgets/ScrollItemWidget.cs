@@ -24,6 +24,7 @@ namespace OpenRA.Widgets
 			IsVisible = () => false;
 			VisualHeight = 0;
 			IgnoreChildMouseOver = true;
+			LegacyLayout = true;
 		}
 
 		protected ScrollItemWidget(ScrollItemWidget other)
@@ -34,6 +35,11 @@ namespace OpenRA.Widgets
 			IgnoreChildMouseOver = true;
 			Key = other.Key;
 			BaseName = other.BaseName;
+		}
+
+		public override void PerformLayout()
+		{
+			layoutDirty = false;
 		}
 
 		public Func<bool> IsSelected = () => false;

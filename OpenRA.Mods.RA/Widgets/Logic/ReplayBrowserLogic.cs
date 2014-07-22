@@ -550,7 +550,7 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 			if (selectedReplay == null || replayState[selectedReplay].Visible == false)
 				SelectFirstVisibleReplay();
 
-			replayList.Layout.AdjustChildren();
+			replayList.ClassicLayout.AdjustChildren();
 		}
 
 		void SelectFirstVisibleReplay()
